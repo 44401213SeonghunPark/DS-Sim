@@ -11,6 +11,7 @@ byte[] byteMsg = stringMsg.getBytes();
 dout.write(byteMsg);
 dout.flush();
 
+//test commit
 
 dout.close();  
 s.close();  
