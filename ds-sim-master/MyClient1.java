@@ -32,8 +32,11 @@ public static void main(String[] args){
 
         dout.write(("GETS All" +"\n").getBytes());
 
-        String str4=(String)br.readLine();
-        System.out.println("Server says "+str4);
+        String getResults =(String)br.readLine();
+        String[] getAmount = getResults.split(" ");
+        int serverAmount = Integer.parseInt(getAmount[1]);
+        //String str4=(String)br.readLine();
+        System.out.println("Server amount "+ serverAmount);
 
         dout.write(("OK" +"\n").getBytes());
 
@@ -42,8 +45,9 @@ public static void main(String[] args){
         String serverId="";
         int max = 0;
         int temp = 0;
+        int i = 0;
         servers=(String)br.readLine();
-        while((servers = br.readLine()) != null){
+        while(i<serverAmount){
             servers=(String)br.readLine();
             String[] arr2 = servers.split(" ");
             System.out.println("Server says "+servers);
@@ -66,7 +70,7 @@ public static void main(String[] args){
             jobId= jobsInfo[2];
             dout.write(("SCHD "+jobId+serverType+serverId+"\n").getBytes());
             ok=(String)br.readLine();
-            System.out.println("Server says "+str4);
+           // System.out.println("Server says "+str4);
 
             dout.write(("OK" +"\n").getBytes());
             dout.write(("REDY"+"\n").getBytes());
