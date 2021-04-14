@@ -41,7 +41,7 @@ while(true){
         dout.write(byteMsg3);
         dout.flush();
 
-        //receive command from server (JOBN or JCPL or NONE)    
+        //receive command from server (JOBN or JCPL or NONE)
         String reply3=in.readLine();
         String[] jobn=reply3.split(" ");
         System.out.println(jobn[0]);
@@ -89,7 +89,7 @@ while(true){
         byte[] byteMsg4 = stringMsg4.getBytes();
         dout.write(byteMsg4);
         dout.flush();
-        
+
         //receive DATA
         String reply4=in.readLine();
         String[] servAmountArray=reply4.split(" ");
