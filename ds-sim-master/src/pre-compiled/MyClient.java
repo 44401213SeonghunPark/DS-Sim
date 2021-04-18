@@ -73,31 +73,6 @@ try{
                 }
             }
 
-            //send GETS command
-            dout.write(("GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n").getBytes());
-            dout.flush();
-
-            //read DATA
-            String reply4=in.readLine();
-            String[] servAmountArray=reply4.split(" ");
-            int servAmountNum = Integer.parseInt(servAmountArray[1]);
-
-            //send OK
-            dout.write(("OK"+"\n").getBytes());
-            dout.flush();
-
-            //read SERVER INFO
-            for(int i =0; i<servAmountNum; i++){
-                String reply5=in.readLine();
-            }
-
-            //Send OK
-            dout.write(("OK"+"\n").getBytes());
-            dout.flush();
-
-            //recieve "."
-            String reply6=in.readLine();
-
             //Send SCHD command (JOBID SERVERTYPE SERVER ID)
             dout.write(("SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n").getBytes());
             dout.flush();
