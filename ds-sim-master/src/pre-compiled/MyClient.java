@@ -1,5 +1,7 @@
 import java.io.*;
 import java.net.*;
+import java.lang.*;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,26 +22,20 @@ try{
     BufferedReader in = new BufferedReader( new InputStreamReader( s.getInputStream()));
 
     //Handshake
-    String stringMsg="HELO\n";
-    byte[] byteMsg = stringMsg.getBytes();
-    dout.write(byteMsg);
+    dout.write(("HELO"+"\n").getBytes());
     dout.flush();
 
     String reply=in.readLine();
 
-    String username =System.getProperty("user.name");
-    String stringMsg2="AUTH "+username+"\n";
-    byte[] byteMsg2 = stringMsg2.getBytes();
-    dout.write(byteMsg2);
+    String username = System.getProperty("user.name");
+    dout.write(("AUTH "+username+"\n").getBytes());
     dout.flush();
 
     String reply2=in.readLine();
 
     while(true){
         //Send REDY
-        String stringMsg3="REDY\n";
-        byte[] byteMsg3 = stringMsg3.getBytes();
-        dout.write(byteMsg3);
+        dout.write(("REDY"+"\n").getBytes());
         dout.flush();
 
         //Read command from server (JOBN or JCPL or NONE)
@@ -80,9 +76,7 @@ try{
             }
 
             //send GETS command
-            String stringMsg4="GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n";
-            byte[] byteMsg4 = stringMsg4.getBytes();
-            dout.write(byteMsg4);
+            dout.write(("GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n").getBytes());
             dout.flush();
 
             //read DATA
@@ -91,10 +85,7 @@ try{
             int servAmountNum = Integer.parseInt(servAmountArray[1]);
 
             //send OK
-            String stringMsg5="OK\n";
-
-            byte[] byteMsg5 = stringMsg5.getBytes();
-            dout.write(byteMsg5);
+            dout.write(("OK"+"\n").getBytes());
             dout.flush();
 
             //read SERVER INFO
@@ -103,18 +94,14 @@ try{
             }
 
             //Send OK
-            String stringMsg6="OK\n";
-            byte[] byteMsg6 = stringMsg6.getBytes();
-            dout.write(byteMsg6);
+            dout.write(("OK"+"\n").getBytes());
             dout.flush();
 
             //recieve "."
             String reply6=in.readLine();
 
             //Send SCHD command (JOBID SERVERTYPE SERVER ID)
-            String stringMsg7="SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n";
-            byte[] byteMsg7 = stringMsg7.getBytes();
-            dout.write(byteMsg7);
+            dout.write(("SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n").getBytes());
             dout.flush();
 
             //read OK
@@ -124,9 +111,7 @@ try{
     }//end of while loop
 
     //Send quit
-    String stringMsgQuit="QUIT\n";
-    byte[] byteMsgQuit = stringMsgQuit.getBytes();
-    dout.write(byteMsgQuit);
+    dout.write(("QUIT"+"\n").getBytes());
     dout.flush();
 
     //read quit
