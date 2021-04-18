@@ -1,7 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.lang.*;
-import java.util.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;

@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
-public class MyClient{
+public class MyClient3{
 public static void main(String args[]){
 try{
 
@@ -20,35 +20,28 @@ DataOutputStream dout=new DataOutputStream(s.getOutputStream());
 BufferedReader in = new BufferedReader( new InputStreamReader( s.getInputStream()));
 
 //Handshake
-String stringMsg="HELO\n";
-byte[] byteMsg = stringMsg.getBytes();
-dout.write(byteMsg);
+dout.write(("HELO"+"\n").getBytes());
 dout.flush();
 
 String reply=in.readLine();
 
-String stringMsg2="AUTH username\n";
-byte[] byteMsg2 = stringMsg2.getBytes();
-dout.write(byteMsg2);
+String username = System.getProperty("user.name");
+dout.write(("AUTH "+username+"\n").getBytes());
 dout.flush();
 
 String reply2=in.readLine();
 
 while(true){
         //Send REDY
-        String stringMsg3="REDY\n";
-        byte[] byteMsg3 = stringMsg3.getBytes();
-        dout.write(byteMsg3);
+        dout.write(("REDY"+"\n").getBytes());
         dout.flush();
 
         //receive command from server (JOBN or JCPL or NONE)
         String reply3=in.readLine();
         String[] jobn=reply3.split(" ");
-        System.out.println(jobn[0]);
 
         //check if  server is finished sending jobs
         if(jobn[0].equals("NONE")){
-        System.out.println("none detected");
         break;
         }
 
@@ -85,9 +78,7 @@ while(true){
         }
 
         //send GETS command
-        String stringMsg4="GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n";
-        byte[] byteMsg4 = stringMsg4.getBytes();
-        dout.write(byteMsg4);
+        dout.write(("GETS Capable "+jobn[4]+" "+jobn[5]+" "+jobn[6]+"\n").getBytes());
         dout.flush();
 
         //receive DATA
@@ -96,10 +87,7 @@ while(true){
         int servAmountNum = Integer.parseInt(servAmountArray[1]);
 
         //send OK
-        String stringMsg5="OK\n";
-
-     byte[] byteMsg5 = stringMsg5.getBytes();
-        dout.write(byteMsg5);
+        dout.write(("OK"+"\n").getBytes());
         dout.flush();
 
         //read SERVER INFO
@@ -107,19 +95,14 @@ while(true){
         String reply5=in.readLine();
         }
 
-        String stringMsg6="OK\n";
-        byte[] byteMsg6 = stringMsg6.getBytes();
-        dout.write(byteMsg6);
+        dout.write(("OK"+"\n").getBytes());
         dout.flush();
 
         //recieve "."
         String reply6=in.readLine();
 
         //send SCHD command (JOBID SERVERTYPE SERVER ID)
-        String stringMsg7="SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n";
-        System.out.println(stringMsg7);
-        byte[] byteMsg7 = stringMsg7.getBytes();
-        dout.write(byteMsg7);
+        dout.write(("SCHD "+jobn[2]+" "+serverType+" "+"0"+"\n").getBytes());
         dout.flush();
 
         //receive OK
@@ -131,9 +114,7 @@ while(true){
 
 
         //Send quit
-        String stringMsgQuit="QUIT\n";
-        byte[] byteMsgQuit = stringMsgQuit.getBytes();
-        dout.write(byteMsgQuit);
+        dout.write(("QUIT"+"\n").getBytes());
         dout.flush();
 
         //receive quit
@@ -143,7 +124,7 @@ while(true){
 
 
 in.close();
-dout.close();   
+dout.close();
 s.close();
 }catch(Exception e){System.out.println(e);}
 }
